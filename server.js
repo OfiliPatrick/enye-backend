@@ -39,13 +39,18 @@ app.get("/api/rates", async (req, res) => {
     };
     return res.status(200).send(transformed);
   } catch (error) {
-    res
-      .status(400)
-      .send(
-        "Oops, " +
+    res.status(400).send({
+      status: "error",
+      error: {
+        message:
+          "Oops, " +
           error.message +
-          " Please check request parameters and try again."
-      );
+          " Please check request parameters and try again.",
+        trace: {
+          statusCode: 400,
+        },
+      },
+    });
   }
 });
 
